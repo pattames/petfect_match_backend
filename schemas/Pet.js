@@ -1,43 +1,44 @@
-const mongoose = require("require");
+const mongoose = require("mongoose");
 
 const PetSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  age: {
-    type: Number,
-    required: true,
-  },
-  "type of pet": {
+  pet_type: {
     type: String,
     required: true,
-  },
-  breed: {
-    type: String,
   },
   characteristics: {
-    Size: {
+    breed: {
+      type: String,
+    },
+    age: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: true,
+    },
+    gender: {
       type: String,
       required: true,
     },
   },
-  image: {
+  images: {
     img1: {
       type: String,
       required: true,
     },
     img2: {
       type: String,
-      required: true,
     },
     img3: {
       type: String,
-      required: true,
     },
     img4: {
       type: String,
-      required: true,
     },
   },
   owner: {
