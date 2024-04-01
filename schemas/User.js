@@ -18,15 +18,38 @@ const UserSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  info: {
+    location: {
+      type: String,
+    },
+    space_available: {
+      type: String,
+    },
+    space_type: {
+      type: String,
+    },
+  },
   preferences: {
-    city: {
+    pet_type: {
+      type: String,
+    },
+    breed: {
+      type: String,
+    },
+    age: {
+      type: String,
+    },
+    size: {
+      type: String,
+    },
+    gender: {
       type: String,
     },
   },
   pets: [
     {
+      //Reference to Pet schema:
       type: mongoose.Schema.Types.ObjectId,
-      //This is gonna be the reference to the Pet schema
       ref: "Pet",
     },
   ],

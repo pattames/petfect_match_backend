@@ -4,6 +4,7 @@ const connectDB = require("./dbinit");
 const app = express();
 require("dotenv").config();
 const userRoute = require("./routes/userRoute");
+const petRoute = require("./routes/petRoute");
 
 connectDB();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/user", userRoute);
+app.use("/pets", petRoute);
 
 app.get("/", (req, res) => {
   res.send("Welcome to our API");
