@@ -9,6 +9,12 @@ const PetSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+    minLength: 20,
+    maxLength: 2000,
+  },
   characteristics: {
     breed: {
       type: String,

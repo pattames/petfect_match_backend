@@ -1,4 +1,5 @@
 const express = require("express");
+const requireAuth = require("../middleware/requireAuth");
 
 const {
   getOneUser,
@@ -9,7 +10,11 @@ const {
 
 const app = express.Router();
 
-app.route("/:id").get(getOneUser).put(updateUser);
+//Apply auth globally
+// app.use(requireAuth);
+
+// Apply auth locally
+app.route("/:id").get(requireAuth, getOneUser).put(requireAuth, updateUser);
 
 app.route("/login").post(loginUser);
 app.route("/signup").post(signupUser);

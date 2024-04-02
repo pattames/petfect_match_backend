@@ -24,6 +24,7 @@ const jwt = require("jsonwebtoken");
 const getOneUser = async (req, res) => {
   try {
     const { id } = req.params;
+    //populate is added to retrieve the entire pets object, and not only the ObjectId
     const user = await User.findById(id).populate("pets");
     if (!user) {
       res.status(404).json({ message: "I don't know that user" });
