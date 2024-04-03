@@ -1,4 +1,5 @@
 const express = require("express");
+const upload = require("../services/upload");
 const requireAuth = require("../middleware/requireAuth");
 
 const {
@@ -11,13 +12,13 @@ const {
 
 const app = express.Router();
 
-app.route("/").get(getAllPets).post(requireAuth, createPet);
+app.route("/").get(getAllPets).post(createPet);
 
 app
   .route("/:id")
-  .get(requireAuth, getOnePet)
-  .put(requireAuth, updatePet)
-  .delete(requireAuth, deletePet);
+  .get(getOnePet)
+  .put(upload.array("images", 4), updatePet)
+  .delete(deletePet);
 
 // app.route("/?pet_type=dog").get(getDogs);
 

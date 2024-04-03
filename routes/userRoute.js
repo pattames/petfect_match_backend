@@ -1,4 +1,5 @@
 const express = require("express");
+const upload = require("../services/upload");
 const requireAuth = require("../middleware/requireAuth");
 
 const {
@@ -14,7 +15,10 @@ const app = express.Router();
 // app.use(requireAuth);
 
 // Apply auth locally
-app.route("/:id").get(requireAuth, getOneUser).put(requireAuth, updateUser);
+app
+  .route("/:id")
+  .get(getOneUser)
+  .put(requireAuth, upload.single("picture"), updateUser);
 
 app.route("/login").post(loginUser);
 app.route("/signup").post(signupUser);
