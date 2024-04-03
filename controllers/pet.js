@@ -14,6 +14,7 @@ const createPet = async (req, res) => {
       images,
       owner,
     });
+
     //Push pet to user document
     const user = await User.findById(owner);
     user.pets.push(pet._id);
@@ -27,13 +28,41 @@ const createPet = async (req, res) => {
 
 //Get all pets
 const getAllPets = async (req, res) => {
+  console.log("QUERY coming from FE: ", req.query);
+  console.log("BODY?", req.body.filters);
   try {
-    //populating the owner schema
-    const pets = await Pet.find().populate("owner");
+    const pets = await Pet.find();
+
+    let filtered;
+
+    if (req.body.filters) {
+      const filters = req.body.filters;
+      filtered = pets.filter((pet) =>
+        Object.entries(filters).every(([key, filterValue]) => {
+          // Check for top-level attributes
+          if (key in pet && pet[key] === filterValue) {
+            return true;
+          }
+
+          // Check for nested 'characteristics'
+          if (
+            pet.characteristics &&
+            key in pet.characteristics &&
+            pet.characteristics[key] === filterValue
+          ) {
+            return true;
+          }
+
+          // If no condition matches, the filter does not apply to this pet; hence, exclude it
+          return false;
+        })
+      );
+    }
+
     if (!pets.length) {
       res.status(200).json({ message: "No pets in the DB" });
     } else {
-      res.status(200).json({ data: pets });
+      res.status(200).json({ data: req.body.filters ? filtered : pets });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -61,13 +90,21 @@ const getOnePet = async (req, res) => {
 const updatePet = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, pet_type, description, characteristics, images } = req.body;
+    const { name, pet_type, description, characteristics } = req.body;
 
-    const pet = await Pet.findByIdAndUpdate(
-      id,
-      { name, pet_type, description, characteristics, images },
-      { new: true }
-    );
+    // Initialize update object with fields other than image
+    let updateObject = { name, pet_type, description, characteristics };
+
+    // If there's a file, it means image needs to be updated
+    if (req.files) {
+      const images = req.files.map((file) => ({
+        url: file.path,
+        description: req.body.description,
+      }));
+      updateObject.images = images;
+    }
+
+    const pet = await Pet.findByIdAndUpdate(id, updateObject, { new: true });
 
     if (!pet) {
       res.status(404).json({ message: "This pet is not here anymore" });
