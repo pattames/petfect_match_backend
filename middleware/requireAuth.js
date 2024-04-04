@@ -9,7 +9,7 @@ const requireAuth = async (req, res, next) => {
   }
 
   //Auth in headers is always structured like so:"Bearer + token"
-  //we need to get rid of the Bearer, split at the empty space and just give me the token [1]
+  //we need to get rid of the Bearer: split at the empty space and just give me the token [1]
   const token = authorization.split(" ")[1];
 
   try {
