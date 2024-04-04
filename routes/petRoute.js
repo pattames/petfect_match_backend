@@ -12,13 +12,16 @@ const {
 
 const app = express.Router();
 
-app.route("/").get(getAllPets).post(createPet);
+app
+  .route("/")
+  .get(requireAuth, getAllPets)
+  .post(requireAuth, upload.array("image", 4), createPet);
 
 app
   .route("/:id")
-  .get(getOnePet)
-  .put(upload.array("images", 4), updatePet)
-  .delete(deletePet);
+  .get(requireAuth, getOnePet)
+  .put(requireAuth, upload.array("image", 4), updatePet)
+  .delete(requireAuth, deletePet);
 
 // app.route("/?pet_type=dog").get(getDogs);
 
