@@ -15,6 +15,11 @@ const PetSchema = new mongoose.Schema({
     minLength: 20,
     maxLength: 2000,
   },
+  favorite_thing: {
+    type: String,
+    minLength: 20,
+    maxLength: 1000,
+  },
   characteristics: {
     breed: {
       type: String,

@@ -4,7 +4,14 @@ const Pet = require("../schemas/Pet");
 //Create pet
 const createPet = async (req, res) => {
   try {
-    const { name, pet_type, description, characteristics, owner } = req.body;
+    const {
+      name,
+      pet_type,
+      description,
+      favorite_thing,
+      characteristics,
+      owner,
+    } = req.body;
 
     let images = []; // Initialize images array
 
@@ -20,6 +27,7 @@ const createPet = async (req, res) => {
       name,
       pet_type,
       description,
+      favorite_thing,
       characteristics,
       images,
       owner,
@@ -100,10 +108,17 @@ const getOnePet = async (req, res) => {
 const updatePet = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, pet_type, description, characteristics } = req.body;
+    const { name, pet_type, description, favorite_thing, characteristics } =
+      req.body;
 
     // Initialize update object with fields other than image
-    let updateObject = { name, pet_type, description, characteristics };
+    let updateObject = {
+      name,
+      pet_type,
+      description,
+      favorite_thing,
+      characteristics,
+    };
 
     // If there's a file, it means image needs to be updated
     if (req.files) {
