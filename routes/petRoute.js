@@ -14,7 +14,7 @@ const app = express.Router();
 
 app
   .route("/")
-  .get(requireAuth, getAllPets)
+  .get(getAllPets)
   .post(requireAuth, upload.array("image", 4), createPet);
 
 app
