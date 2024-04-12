@@ -18,6 +18,8 @@ const signupUser = async (req, res) => {
     //get rid of returning the token after testing
     res.status(200).json({
       _id: user._id,
+      image: user.image.url,
+      name: user.name,
       email,
       token,
       message: "User created successfully",
@@ -37,9 +39,14 @@ const loginUser = async (req, res) => {
     const token = createToken(user._id);
 
     //get rid of returning the token after testing
-    res
-      .status(200)
-      .json({ _id: user._id, email, token, message: "Login successfull" });
+    res.status(200).json({
+      _id: user._id,
+      image: user.image.url,
+      name: user.name,
+      email,
+      token,
+      message: "Login successfull",
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
