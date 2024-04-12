@@ -15,10 +15,7 @@ const app = express.Router();
 // app.use(requireAuth);
 
 // Apply auth locally
-app
-  .route("/:id")
-  .get(requireAuth, getOneUser)
-  .put(requireAuth, upload.single("image"), updateUser);
+app.route("/:id").get(getOneUser).put(upload.single("image"), updateUser);
 
 app.route("/login").post(loginUser);
 app.route("/signup").post(signupUser);
