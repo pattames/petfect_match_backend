@@ -16,14 +16,12 @@ const signupUser = async (req, res) => {
     const token = createToken(user._id);
 
     //get rid of returning the token after testing
-    res
-      .status(200)
-      .json({
-        _id: user._id,
-        email,
-        token,
-        message: "User created successfully",
-      });
+    res.status(200).json({
+      _id: user._id,
+      email,
+      token,
+      message: "User created successfully",
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -76,7 +74,7 @@ const updateUser = async (req, res) => {
     console.log("BODY", req.body);
 
     // Initialize update object with fields other than image
-    let updateObject = { name, info: JSON.parse(infoq) };
+    let updateObject = { name, info: JSON.parse(info) };
 
     // If there's a file, it means image needs to be updated
     if (req.file && req.file.path) {
