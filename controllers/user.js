@@ -67,18 +67,21 @@ const getOneUser = async (req, res) => {
 
 //Update user
 const updateUser = async (req, res) => {
+  console.log("######################################");
   try {
     const { id } = req.params;
-    const { name, info, preferences } = req.body;
+    const { name, info } = req.body;
+
+    console.log("FILE", req.file);
+    console.log("BODY", req.body);
 
     // Initialize update object with fields other than image
-    let updateObject = { name, info, preferences };
+    let updateObject = { name, info: JSON.parse(infoq) };
 
     // If there's a file, it means image needs to be updated
     if (req.file && req.file.path) {
       updateObject.image = {
         url: req.file.path,
-        description: req.body.description,
       };
     }
 
