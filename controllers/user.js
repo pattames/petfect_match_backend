@@ -22,6 +22,7 @@ const signupUser = async (req, res) => {
       name: user.name,
       email,
       token,
+      pets: user.pets,
       message: "User created successfully",
     });
   } catch (error) {
@@ -45,6 +46,7 @@ const loginUser = async (req, res) => {
       name: user.name,
       email,
       token,
+      pets: user.pets,
       message: "Login successfull",
     });
   } catch (error) {
@@ -58,6 +60,7 @@ const getOneUser = async (req, res) => {
     const { id } = req.params;
     //populate is added to retrieve the entire pets object, and not only the ObjectId
     const user = await User.findById(id).populate("pets");
+    console.log(user);
     if (!user) {
       res.status(404).json({ message: "I don't know that user" });
     } else {

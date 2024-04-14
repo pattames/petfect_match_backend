@@ -144,13 +144,14 @@ const updatePet = async (req, res) => {
 const deletePet = async (req, res) => {
   try {
     const { id } = req.params;
-    const pet = await Pet.findOneAndDelete(id).populate("owner");
+    const pet = await Pet.findByIdAndDelete(id);
     if (!pet) {
       res.status(404).json({ message: "I don't know that pet" });
     } else {
       //Remove pet from user document
       const user = await User.findById(pet.owner);
-      user.pets.pull(pet._id);
+      const _id = pet._id;
+      user.pets.pull(_id);
       //save updated user document in DB
       await user.save();
       res.status(200).json({ message: "Pet deleted" });
