@@ -95,11 +95,6 @@ const updateUser = async (req, res) => {
 
     const user = await User.findByIdAndUpdate(id, updateObject, { new: true });
 
-    // const user = await User.findByIdAndUpdate(
-    //   id,
-    //   { name, image, info, preferences },
-    //   { new: true }
-    // );
     if (!user) {
       res.status(404).json({ message: "I don't know this user" });
     } else {
