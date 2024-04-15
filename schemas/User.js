@@ -57,7 +57,7 @@ const UserSchema = new mongoose.Schema({
 
 //Signup function
 UserSchema.statics.signup = async function (email, password) {
-  const exists = await this.findOne({ email });
+  const exists = await this.findOne({ email }).populate("pets");
 
   if (exists) {
     throw Error("Email already in use");
@@ -87,7 +87,8 @@ UserSchema.statics.login = async function (email, password) {
     throw Error("All fields must be filled");
   }
 
-  const user = await this.findOne({ email });
+  //populate is added to retrieve the entire pets object, and not only the ObjectId
+  const user = await this.findOne({ email }).populate("pets");
   if (!user) {
     throw Error("Email is incorrect or it doesn't exist");
   }
