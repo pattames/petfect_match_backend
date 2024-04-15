@@ -23,6 +23,7 @@ const signupUser = async (req, res) => {
       email,
       token,
       pets: user.pets,
+      info: user.info,
       message: "User created successfully",
     });
   } catch (error) {
@@ -47,6 +48,7 @@ const loginUser = async (req, res) => {
       email,
       token,
       pets: user.pets,
+      info: user.info,
       message: "Login successfull",
     });
   } catch (error) {
