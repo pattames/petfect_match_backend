@@ -7,17 +7,13 @@ const PetSchema = new mongoose.Schema({
   },
   pet_type: {
     type: String,
-    required: true,
+    // required: true,
   },
   description: {
     type: String,
-    minLength: 20,
-    maxLength: 2000,
   },
   favorite_thing: {
     type: String,
-    minLength: 20,
-    maxLength: 1000,
   },
   characteristics: {
     breed: {
@@ -36,7 +32,6 @@ const PetSchema = new mongoose.Schema({
   images: [
     {
       url: { type: String },
-      description: { type: String },
     },
   ],
 

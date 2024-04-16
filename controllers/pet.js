@@ -3,8 +3,8 @@ const Pet = require("../schemas/Pet");
 
 //Create pet
 const createPet = async (req, res) => {
-  // console.log("ARE WE STARTING????");
-  // console.log("REQ BODY", req.body);
+  console.log("ARE WE STARTING????");
+  console.log("REQ BODY", req.body);
   // console.log("REQ FILES", req.files);
   try {
     const {
@@ -24,7 +24,7 @@ const createPet = async (req, res) => {
         url: file.path, // Assuming 'path' is where the file's URL/path is stored
       }));
     }
-
+    console.log(req.body.characteristics);
     const pet = await Pet.create({
       name,
       pet_type,
