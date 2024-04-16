@@ -3,7 +3,9 @@ const Pet = require("../schemas/Pet");
 
 //Create pet
 const createPet = async (req, res) => {
-  console.log("ARE WE STARTING????");
+  // console.log("ARE WE STARTING????");
+  // console.log("REQ BODY", req.body);
+  // console.log("REQ FILES", req.files);
   try {
     const {
       name,
@@ -14,23 +16,22 @@ const createPet = async (req, res) => {
       owner,
     } = req.body;
 
-    let images = []; // Initialize images array
+    let allImages = []; // Initialize images array
 
     // Check if there are files uploaded and process them
     if (req.files && req.files.length > 0) {
-      images = req.files.map((file) => ({
+      allImages = req.files.map((file) => ({
         url: file.path, // Assuming 'path' is where the file's URL/path is stored
-        description: req.body.description, // You might want a different description for each image
       }));
     }
-    console.log();
+
     const pet = await Pet.create({
       name,
       pet_type,
       description,
       favorite_thing,
-      characteristics,
-      images,
+      characteristics: JSON.parse(characteristics),
+      images: allImages,
       owner,
     });
     console.log("WE ARE NICHT HIER");
