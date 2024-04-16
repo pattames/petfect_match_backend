@@ -12,10 +12,7 @@ const {
 
 const app = express.Router();
 
-app
-  .route("/")
-  .get(getAllPets)
-  .post(requireAuth, upload.array("image", 4), createPet);
+app.route("/").get(getAllPets).post(upload.single("image"), createPet);
 
 app
   .route("/:id")

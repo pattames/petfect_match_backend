@@ -3,6 +3,7 @@ const Pet = require("../schemas/Pet");
 
 //Create pet
 const createPet = async (req, res) => {
+  console.log("ARE WE STARTING????");
   try {
     const {
       name,
@@ -22,7 +23,7 @@ const createPet = async (req, res) => {
         description: req.body.description, // You might want a different description for each image
       }));
     }
-
+    console.log();
     const pet = await Pet.create({
       name,
       pet_type,
@@ -32,10 +33,12 @@ const createPet = async (req, res) => {
       images,
       owner,
     });
-
+    console.log("WE ARE NICHT HIER");
     //Push pet to user document
     const user = await User.findById(owner);
+    console.log("USER", user);
     user.pets.push(pet._id);
+    console.log("SAVING PET:", pet);
     //Save updated user document in DB
     await user.save();
     res.status(201).json({ message: "Pet added succesfully!", data: pet });
