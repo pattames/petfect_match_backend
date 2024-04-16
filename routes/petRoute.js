@@ -12,14 +12,12 @@ const {
 
 const app = express.Router();
 
-app.route("/").get(getAllPets).post(upload.single("image"), createPet);
+app.route("/").get(getAllPets).post(upload.array("images", 5), createPet);
 
 app
   .route("/:id")
   .get(requireAuth, getOnePet)
   .put(requireAuth, upload.array("image", 4), updatePet)
   .delete(requireAuth, deletePet);
-
-// app.route("/?pet_type=dog").get(getDogs);
 
 module.exports = app;

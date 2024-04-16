@@ -33,10 +33,12 @@ const PetSchema = new mongoose.Schema({
       type: String,
     },
   },
-  image: {
-    url: { type: String },
-    description: { type: String },
-  },
+  images: [
+    {
+      url: { type: String },
+      description: { type: String },
+    },
+  ],
 
   owner: {
     type: mongoose.Schema.Types.ObjectId,
