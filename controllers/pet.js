@@ -25,6 +25,7 @@ const createPet = async (req, res) => {
       }));
     }
     console.log(req.body.characteristics);
+
     const pet = await Pet.create({
       name,
       pet_type,
@@ -121,7 +122,7 @@ const updatePet = async (req, res) => {
       pet_type,
       description,
       favorite_thing,
-      characteristics,
+      characteristics: JSON.parse(characteristics),
     };
 
     // If there's a file, it means image needs to be updated
