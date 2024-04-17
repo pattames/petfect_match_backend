@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const PetSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   pet_type: {
     type: String,
